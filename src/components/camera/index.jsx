@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Row, Col, Select, message, Result } from "antd";
 import Alert from "../common/Alert";
-
+import "./index.css"
 // const { confirm } = Modal;
 
 const { Option } = Select;
@@ -49,7 +49,7 @@ export class CameraItem extends React.Component {
         //打开新选择摄像头
         if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
             //调用用户媒体设备, 访问摄像头
-            this.getUserMedia({ video: { width: 800, height: 600, deviceId: { exact: deviceId } } }, this.success, this.error);
+            this.getUserMedia({ video: { width: 3264, height: 2448, deviceId: { exact: deviceId } } }, this.success, this.error);
         } else {
             Alert.info('不支持访问用户媒体');
         }
@@ -124,18 +124,13 @@ export class CameraItem extends React.Component {
         let video = document.getElementById('video');
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, 300, 225);
+        context.drawImage(video,  0, 0, 3264, 2448, 0, 60, 480, 360);
 
         // 绘图转背景，不会被抹掉
         let backgroundImg = 'url(' + canvas.toDataURL() + ')'
         context.clearRect(0, 0, canvas.width, canvas.height)
         // $("#canvas").css('background-image', backgroundImg);
         canvas.style.background = backgroundImg;
-        this.setState({
-            circles: [],
-            canClick: true,
-            canMove: false
-        });
     };
     //关闭摄像头
     onCloseDevice = () => {
@@ -177,8 +172,10 @@ export class CameraItem extends React.Component {
             <Row>
                 <Col span={10} key={1}>
                     <h3>实时画面:</h3>
-                    <video id="video" width="300" height="225">
+                    <div className="camera-div">
+                        <video id="video" width="480" height="480" className="camera-video">
                     </video>
+                    </div>
                     <Row style={{ marginTop: "36px" }}>
                         <div>
                             设备列表 : <Select style={{ width: '180px' }}
@@ -209,8 +206,7 @@ export class CameraItem extends React.Component {
                 <Col span={10} key={2}>
                     <div>
                         <h3>预览:</h3>
-                        <canvas id="canvas" width="300" height="225" ></canvas>
-                        <canvas id="canvasToList" width="1440" height="960" style={{ display: "none" }} ></canvas>
+                        <canvas id="canvas" width="480" height="480" className="camera-canvas"></canvas>
                     </div>
                 </Col>
                 <Col span={4} key={3}>
