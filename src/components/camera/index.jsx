@@ -118,6 +118,21 @@ export class CameraItem extends React.Component {
     error = (error) => {
         console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
     };
+    takePictureSave = () => {
+        // 从视频流中提取照片，创建一个隐藏的canvas，尺寸和视频流原始尺寸一样（3264，2448）
+        let video = document.getElementById('video');
+        let canvas = document.createElement('canvas')
+        let context = canvas.getContext('2d')
+        canvas.width = 3264
+        canvas.height = 2448
+        let angle = -180 * Math.PI / 180
+        context.rotate(angle)
+        context.translate(-canvas.width, -canvas.height)
+        context.drawImage(video, 0, 0)
+
+        let dataURL = canvas.toDataURL()
+        console.log('照片数据是', dataURL)
+    }
     //拍照预览
     takePicturePreView = () => {
         console.log('拍照预览')
@@ -132,6 +147,10 @@ export class CameraItem extends React.Component {
         // $("#canvas").css('background-image', backgroundImg);
         canvas.style.background = backgroundImg;
     };
+    snag = () => {
+        this.takePicturePreView()
+        this.takePictureSave()
+    }
     //关闭摄像头
     onCloseDevice = () => {
         //关闭
@@ -211,7 +230,7 @@ export class CameraItem extends React.Component {
                 </Col>
                 <Col span={4} key={3}>
                     <div>
-                        <button onClick={this.takePicturePreView}>截图</button>
+                        <button onClick={this.snag}>截图</button>
                     </div>
                 </Col>
             </Row>
