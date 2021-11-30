@@ -136,13 +136,19 @@ export class CameraItem extends React.Component {
         console.log('照片数据是', dataURL)
     }
     //拍照预览
-    takePicturePreView = () => {
+    takePicturePreView = (pos) => {
         console.log('拍照预览')
         let video = document.getElementById('video');
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('2d');
-        context.drawImage(video,  0, 0, 3264, 2448, 0, 60, 480, 360);
 
+        if (pos === 'face')
+            context.drawImage(video,  0, 0, 3264, 2448, 0, 60, 480, 360);
+        else if (pos === 'top') {
+            let w = 900
+            let h = 1200
+            context.drawImage(video, 400, (2448-w) / 2, h, w, 0, 60, 480, 360)
+        }
         // 绘图转背景，不会被抹掉
         let backgroundImg = 'url(' + canvas.toDataURL() + ')'
         context.clearRect(0, 0, canvas.width, canvas.height)
