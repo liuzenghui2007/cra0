@@ -112,6 +112,8 @@ export class CameraItem extends React.Component {
         //video.src = CompatibleURL.createObjectURL(stream);
         video.srcObject = stream;
         video.play();
+        // 视频流读取成功即可绘制舌mask 
+        this.drawMask()
 
     };
     //失败回调
@@ -150,6 +152,50 @@ export class CameraItem extends React.Component {
     snag = () => {
         this.takePicturePreView()
         this.takePictureSave()
+    }
+    drawMask = ()=> {
+        // 拍摄舌面时，在video组件上面叠加一层带舌外框的透明的canvas
+        // 目前是一直显示在video上面
+        const canvas = document.getElementById('mask');
+        const ctx = canvas.getContext('2d');
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        let w = 100, h = 160
+        let p0 = {}, p1 = {}, p2 = {}, p3 = {}
+        p0.x = 240
+        p0.y = 400
+
+        // # 三次贝塞尔
+        let p0z = {}, p0y = {}, dpx = 50, dpy = -20
+        p0z.x = p0.x - dpx
+        p0z.y = p0.y + dpy
+        p0y.x = p0.x + dpx
+        p0y.y = p0.y + dpy
+        // # 三次结束
+
+        p1.x = p0.x - w/2
+        p1.y = p0.y - h
+        p2.x = p0.x + w/2
+        p2.y = p0.y - h
+
+        p3.x = 240
+        p3.y = p0.y - 180
+        ctx.moveTo(p1.x, p1.y);
+        // # 舌头下边缘是二次贝塞尔曲线，类似抛物线
+        // # 开始点 控制点 结束点
+        // # ctx.quadraticCurveTo(p0.x, p0.y, p2.x, p2.y);
+        // # 三次贝塞尔，舌头
+        ctx.bezierCurveTo(p0z.x,p0z.y,p0y.x,p0y.y,p2.x,p2.y);
+        ctx.quadraticCurveTo(p3.x, p3.y, p1.x, p1.y);
+        // # 舌头右上-三次贝塞尔曲线
+        // # 开始点，控制点1，控制点2，结束点
+        // # ctx.bezierCurveTo(414,218,340,192,300,200);
+        // # ctx.bezierCurveTo(260,192,186,218,164, 218);
+        ctx.fillStyle = "rgba(255,255,255,0.1)";
+        ctx.strokeStyle = "rgb(255,0,0)"
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
     }
     //关闭摄像头
     onCloseDevice = () => {
@@ -192,8 +238,8 @@ export class CameraItem extends React.Component {
                 <Col span={10} key={1}>
                     <h3>实时画面:</h3>
                     <div className="camera-div">
-                        <video id="video" width="480" height="480" className="camera-video">
-                    </video>
+                        <video id="video" width="480" height="480" className="camera-video" />
+                        <canvas id="mask" width="480" height="480" className="camera-mask" />
                     </div>
                     <Row style={{ marginTop: "36px" }}>
                         <div>

@@ -7,6 +7,12 @@
     transform: rotate(270deg)
 }
 
+.camera-mask {
+    margin: 0;
+    position: relative;
+    margin-top: -100%;
+    z-index: 999
+}
 
 .camera-canvas {
     transform: rotate(270deg)
