@@ -155,8 +155,8 @@ export class CameraItem extends React.Component {
         // $("#canvas").css('background-image', backgroundImg);
         canvas.style.background = backgroundImg;
     };
-    snag = () => {
-        this.takePicturePreView()
+    snag = (pos) => {
+        this.takePicturePreView(pos)
         this.takePictureSave()
     }
     drawMask = ()=> {
@@ -282,7 +282,9 @@ export class CameraItem extends React.Component {
                 </Col>
                 <Col span={4} key={3}>
                     <div>
-                        <button onClick={this.snag}>截图</button>
+                        <button onClick={(e) => this.snag('face', e)}>面部</button>
+                        <button onClick={(e) => this.snag('top', e)}>舌上</button>
+                        <button onClick={(e) => this.snag('bottom', e)}>舌下</button>
                     </div>
                 </Col>
             </Row>
