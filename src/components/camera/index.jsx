@@ -139,6 +139,10 @@ export class CameraItem extends React.Component {
 
         let dataURL = canvas.toDataURL()
         console.log(pos, dataURL)
+        // 修改state的某个属性，如果连属性名都是动态的呢
+        this.setState((state) => {
+            
+        })
     }
     //拍照预览
     takePicturePreView = (pos) => {
