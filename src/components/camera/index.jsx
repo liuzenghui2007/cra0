@@ -1,4 +1,4 @@
-import React from "react";
+import React, { setState } from "react";
 import { Button, Row, Col, Select, message, Result } from "antd";
 import Alert from "../common/Alert";
 import "./index.css"
@@ -18,16 +18,7 @@ export class CameraItem extends React.Component {
             mediaStream: null,
             deviceActive: false,
             tips: "",
-            // 逻辑
-            arm: 0,
-            circles: [],
-            canSnag: false,
-            canClick: false,
-            canMove: false,
-            isDragging: false,
-            preCircle: null,
-            zeropos: [],
-            ratio: 0
+            picsObj: {}
 
         };
     }
@@ -39,6 +30,20 @@ export class CameraItem extends React.Component {
         canvas.onmouseup = this.stopDragging
         canvas.onmouseout = this.stopDragging
         canvas.onmousemove = this.dragCircle
+    }
+    // 初始化照片空对象
+    initPicsObj = () => {
+        this.setState({
+            picsObj: {
+                face: '',
+                top: '',
+                bottom: ''
+            }
+        });
+    }
+    // 上传照片对象
+    uploadPicsObj =() => {
+        console.log(this.state.picsObj)
     }
     //连接相机
     connectDevice = (deviceId) => {
@@ -120,7 +125,7 @@ export class CameraItem extends React.Component {
     error = (error) => {
         console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
     };
-    takePictureSave = () => {
+    takePictureSave = (pos) => {
         // 从视频流中提取照片，创建一个隐藏的canvas，尺寸和视频流原始尺寸一样（3264，2448）
         let video = document.getElementById('video');
         let canvas = document.createElement('canvas')
@@ -133,7 +138,7 @@ export class CameraItem extends React.Component {
         context.drawImage(video, 0, 0)
 
         let dataURL = canvas.toDataURL()
-        console.log('照片数据是', dataURL)
+        console.log(pos, dataURL)
     }
     //拍照预览
     takePicturePreView = (pos) => {
@@ -149,15 +154,21 @@ export class CameraItem extends React.Component {
             let h = 1200
             context.drawImage(video, 400, (2448-w) / 2, h, w, 0, 60, 480, 360)
         }
+        else if (pos === 'bottom') {
+            let w = 900
+            let h = 1200
+            context.drawImage(video, 400, (2448-w) / 2, h, w, 0, 60, 480, 360)
+        }
         // 绘图转背景，不会被抹掉
-        let backgroundImg = 'url(' + canvas.toDataURL() + ')'
+        let dataURL = canvas.toDataURL() 
+        let backgroundImg = 'url(' + dataURL + ')'
         context.clearRect(0, 0, canvas.width, canvas.height)
         // $("#canvas").css('background-image', backgroundImg);
         canvas.style.background = backgroundImg;
     };
     snag = (pos) => {
         this.takePicturePreView(pos)
-        this.takePictureSave()
+        this.takePictureSave(pos)
     }
     drawMask = ()=> {
         // 拍摄舌面时，在video组件上面叠加一层带舌外框的透明的canvas
