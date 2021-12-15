@@ -30,6 +30,7 @@ export class CameraItem extends React.Component {
         canvas.onmouseup = this.stopDragging
         canvas.onmouseout = this.stopDragging
         canvas.onmousemove = this.dragCircle
+        this.initPicsObj()
     }
     // 初始化照片空对象
     initPicsObj = () => {
@@ -125,6 +126,11 @@ export class CameraItem extends React.Component {
     error = (error) => {
         console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
     };
+    handleSetState = (cat, key, val) => {
+        const category = {...this.state[cat]};
+        category[key] = val;
+        this.setState({ [cat]: category });
+      }
     takePictureSave = (pos) => {
         // 从视频流中提取照片，创建一个隐藏的canvas，尺寸和视频流原始尺寸一样（3264，2448）
         let video = document.getElementById('video');
@@ -139,10 +145,11 @@ export class CameraItem extends React.Component {
 
         let dataURL = canvas.toDataURL()
         console.log(pos, dataURL)
-        // 修改state的某个属性，如果连属性名都是动态的呢
-        this.setState((state) => {
-            
-        })
+        // 修改state的某个属性，如果连属性名都是动态的呢    
+        // https://medium.com/@katestamas/dynamically-update-states-in-react-7558287e5fb9
+        // state的改变是异步的
+        this.handleSetState('picsObj', pos, dataURL)
+        console.log(this.state.picsObj)
     }
     //拍照预览
     takePicturePreView = (pos) => {
