@@ -2,6 +2,7 @@ import React, { setState } from "react";
 import { Button, Row, Col, Select, message, Result } from "antd";
 import Alert from "../common/Alert";
 import "./index.css"
+import feathersClient from "../../utils/app"
 // const { confirm } = Modal;
 
 const { Option } = Select;
@@ -45,6 +46,16 @@ export class CameraItem extends React.Component {
     // 上传照片对象
     uploadPicsObj =() => {
         console.log(this.state.picsObj)
+        feathersClient.services.pics.create({
+            text: 'this is a pic',
+            ...this.state.picsObj
+        })
+        .then((res)=> {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
     //连接相机
     connectDevice = (deviceId) => {
@@ -144,12 +155,12 @@ export class CameraItem extends React.Component {
         context.drawImage(video, 0, 0)
 
         let dataURL = canvas.toDataURL()
-        console.log(pos, dataURL)
+        // console.log(pos, dataURL)
         // 修改state的某个属性，如果连属性名都是动态的呢    
         // https://medium.com/@katestamas/dynamically-update-states-in-react-7558287e5fb9
         // state的改变是异步的
         this.handleSetState('picsObj', pos, dataURL)
-        console.log(this.state.picsObj)
+        // console.log(this.state.picsObj)
     }
     //拍照预览
     takePicturePreView = (pos) => {
@@ -307,6 +318,7 @@ export class CameraItem extends React.Component {
                         <button onClick={(e) => this.snag('face', e)}>面部</button>
                         <button onClick={(e) => this.snag('top', e)}>舌上</button>
                         <button onClick={(e) => this.snag('bottom', e)}>舌下</button>
+                        <button onClick={(e) => this.uploadPicsObj()}>舌下</button>
                     </div>
                 </Col>
             </Row>
