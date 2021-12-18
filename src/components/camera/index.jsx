@@ -318,7 +318,7 @@ export class CameraItem extends React.Component {
                         <button onClick={(e) => this.snag('face', e)}>面部</button>
                         <button onClick={(e) => this.snag('top', e)}>舌上</button>
                         <button onClick={(e) => this.snag('bottom', e)}>舌下</button>
-                        <button onClick={(e) => this.uploadPicsObj()}>舌下</button>
+                        <button onClick={(e) => this.uploadPicsObj()}>上传</button>
                     </div>
                 </Col>
             </Row>
