@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-12-18 20:25:50
- * @LastEditTime: 2021-12-18 20:38:04
- * @LastEditors: your name
+ * @LastEditTime: 2021-12-19 14:07:51
+ * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /cra0/server/src/models/pics.model.ts
  */
@@ -19,9 +19,9 @@ export default function (app: Application): Model<any> {
   const { Schema } = mongooseClient;
   const schema = new Schema({
     text: { type: String, required: true },
-    face: { type: String, required: true },
-    top: { type: String, required: true},
-    bottom: { type: String, required: true}
+    face: { type: String, required: false },
+    top: { type: String, required: false },
+    bottom: { type: String, required: false }
   }, {
     timestamps: true
   });
