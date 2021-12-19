@@ -8,13 +8,14 @@
  */
 import { HooksObject } from '@feathersjs/feathers';
 import * as authentication from '@feathersjs/authentication';
+import showContextInfo from '../../hooks/show-context-info';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
 export default {
   before: {
-    all: [ ],
+    all: [showContextInfo()],
     find: [],
     get: [],
     create: [],
