@@ -9,16 +9,19 @@
 import { HooksObject } from '@feathersjs/feathers';
 import * as authentication from '@feathersjs/authentication';
 import showContextInfo from '../../hooks/show-context-info';
+import savePictures from '../../hooks/save-pictures';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
 export default {
   before: {
-    all: [showContextInfo()],
+    all: [],
     find: [],
     get: [],
-    create: [],
+    create: [
+      showContextInfo(),
+      savePictures()],
     update: [],
     patch: [],
     remove: []
