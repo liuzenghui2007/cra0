@@ -137,6 +137,7 @@ export class CameraItem extends React.Component {
     error = (error) => {
         console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
     };
+    // 动态修改一个属性值
     handleSetState = (cat, key, val) => {
         const category = {...this.state[cat]};
         category[key] = val;
