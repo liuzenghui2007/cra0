@@ -16,6 +16,11 @@ export default (options = {}): Hook => {
     // console.log(context.data)
 
     await savePicture("top", context);
+    await savePicture("bottom", context);
+    await savePicture("face", context);
     return context;
   };
 };
+
+
+// GeneralError {type: 'FeathersError', name: 'GeneralError', message: 'Input Buffer is empty',
