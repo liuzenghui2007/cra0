@@ -18,7 +18,7 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true },
+    rid: { type: String, required: true },
     face: { type: String, required: false },
     top: { type: String, required: false },
     bottom: { type: String, required: false }
