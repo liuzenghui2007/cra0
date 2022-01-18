@@ -15,9 +15,9 @@ export default (options = {}): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
     // console.log(context.data)
 
-    await savePicture("top", context);
-    await savePicture("bottom", context);
-    await savePicture("face", context);
+    // await savePicture("top", context);
+    // await savePicture("bottom", context);
+    // await savePicture("face", context);
     return context;
   };
 };
