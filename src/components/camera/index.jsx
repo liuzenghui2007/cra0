@@ -379,13 +379,45 @@ export class CameraItem extends React.Component {
                   ></canvas>
                 </div>
               </Col>
-              <Col span={4} key={3}>
-                <div>
-                  <button onClick={(e) => this.snag("face", e)}>面部</button>
-                  <button onClick={(e) => this.snag("top", e)}>舌上</button>
-                  <button onClick={(e) => this.snag("bottom", e)}>舌下</button>
-                  <button onClick={(e) => this.uploadPicsObj()}>上传</button>
-                </div>
+            </Row>
+            <Row>
+              <Col span={20} key={3}>
+                <Button
+                  type="primary"
+                  style={{ marginLeft: "20px" }}
+                  onClick={(e) => {
+                    this.snag("face", e);
+                  }}
+                >
+                  面部
+                </Button>
+                <Button
+                  type="primary"
+                  style={{ marginLeft: "20px" }}
+                  onClick={(e) => {
+                    this.snag("top", e);
+                  }}
+                >
+                  舌上
+                </Button>
+                <Button
+                  type="primary"
+                  style={{ marginLeft: "20px" }}
+                  onClick={(e) => {
+                    this.snag("bottom", e);
+                  }}
+                >
+                  舌下
+                </Button>
+                <Button
+                  type="primary"
+                  style={{ marginLeft: "20px" }}
+                  onClick={(e) => {
+                    this.uploadPicsObj();
+                  }}
+                >
+                  上传
+                </Button>
               </Col>
             </Row>
           </div>
