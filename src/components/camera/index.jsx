@@ -450,7 +450,43 @@ export class CameraItem extends React.Component {
                   </Form.Item>
                   <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                      Submit
+                      开始
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={{ marginLeft: "20px" }}
+                      onClick={(e) => {
+                        this.snag("face", e);
+                      }}
+                    >
+                      面部
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={{ marginLeft: "20px" }}
+                      onClick={(e) => {
+                        this.snag("top", e);
+                      }}
+                    >
+                      舌上
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={{ marginLeft: "20px" }}
+                      onClick={(e) => {
+                        this.snag("bottom", e);
+                      }}
+                    >
+                      舌下
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={{ marginLeft: "20px" }}
+                      onClick={(e) => {
+                        this.uploadPicsObj();
+                      }}
+                    >
+                      上传
                     </Button>
                   </Form.Item>
                 </Form>
@@ -458,44 +494,7 @@ export class CameraItem extends React.Component {
             </Row>
             <Row></Row>
             <Row>
-              <Col span={20} key={3}>
-                <Button
-                  type="primary"
-                  style={{ marginLeft: "20px" }}
-                  onClick={(e) => {
-                    this.snag("face", e);
-                  }}
-                >
-                  面部
-                </Button>
-                <Button
-                  type="primary"
-                  style={{ marginLeft: "20px" }}
-                  onClick={(e) => {
-                    this.snag("top", e);
-                  }}
-                >
-                  舌上
-                </Button>
-                <Button
-                  type="primary"
-                  style={{ marginLeft: "20px" }}
-                  onClick={(e) => {
-                    this.snag("bottom", e);
-                  }}
-                >
-                  舌下
-                </Button>
-                <Button
-                  type="primary"
-                  style={{ marginLeft: "20px" }}
-                  onClick={(e) => {
-                    this.uploadPicsObj();
-                  }}
-                >
-                  上传
-                </Button>
-              </Col>
+              <Col span={20} key={3}></Col>
             </Row>
           </div>
         ) : (
