@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-18 20:25:50
- * @LastEditTime: 2021-12-19 14:07:51
+ * @LastEditTime: 2022-01-21 12:15:38
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /cra0/server/src/models/pics.model.ts
@@ -10,21 +10,28 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-import { Application } from '../declarations';
-import { Model, Mongoose } from 'mongoose';
+import { Application } from "../declarations";
+import { Model, Mongoose } from "mongoose";
 
 export default function (app: Application): Model<any> {
-  const modelName = 'pics';
-  const mongooseClient: Mongoose = app.get('mongooseClient');
+  const modelName = "pics";
+  const mongooseClient: Mongoose = app.get("mongooseClient");
   const { Schema } = mongooseClient;
-  const schema = new Schema({
-    rid: { type: String, required: true },
-    face: { type: String, required: false },
-    top: { type: String, required: false },
-    bottom: { type: String, required: false }
-  }, {
-    timestamps: true
-  });
+  const schema = new Schema(
+    {
+      rid: { type: String, required: true },
+      face: { type: String, required: false },
+      top: { type: String, required: false },
+      bottom: { type: String, required: false },
+      name: { type: String, required: false },
+      age: { type: String, required: false },
+      sex: { type: String, required: false },
+      mobile: { type: String, required: false },
+    },
+    {
+      timestamps: true,
+    }
+  );
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel
