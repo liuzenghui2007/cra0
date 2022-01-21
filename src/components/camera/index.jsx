@@ -1,5 +1,5 @@
-import React, { setState } from "react";
-import { Button, Row, Col, Select, message, Result } from "antd";
+import React, { setState, useRef } from "react";
+import { Form, Input, Button, Row, Col, Select, message, Result } from "antd";
 import Alert from "../common/Alert";
 import "./index.css";
 import feathersClient from "../../utils/app";
@@ -293,6 +293,13 @@ export class CameraItem extends React.Component {
     blank.height = canvas.height;
     return canvas.toDataURL() === blank.toDataURL(); //比较值相等则为空
   };
+  onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   render() {
     // const radioStyle = {
     //     display: 'block',
@@ -306,7 +313,7 @@ export class CameraItem extends React.Component {
           <div style={{ backgroundColor: "#FFF", padding: "20px" }}>
             <Row>
               <Col span={10} key={1}>
-                <h3>实时画面:</h3>
+                <h3>实时:</h3>
                 <div className="camera-div">
                   <video
                     id="video"
@@ -370,7 +377,7 @@ export class CameraItem extends React.Component {
               </Col>
               <Col span={10} key={2}>
                 <div>
-                  <h3>预览:</h3>
+                  <h3>捕捉:</h3>
                   <canvas
                     id="canvas"
                     width="480"
@@ -380,6 +387,76 @@ export class CameraItem extends React.Component {
                 </div>
               </Col>
             </Row>
+
+            <Row>
+              <Col span={20}>
+                <Form
+                  name="basic"
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  initialValues={{ remember: true }}
+                  onFinish={this.onFinish}
+                  onFinishFailed={this.onFinishFailed}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    label="姓名"
+                    name="username"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your username!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="性别"
+                    name="gender"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your gender!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label="年龄"
+                    name="age"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your age!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label="手机"
+                    name="mobile"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your phone number!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Col>
+            </Row>
+            <Row></Row>
             <Row>
               <Col span={20} key={3}>
                 <Button
