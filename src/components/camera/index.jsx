@@ -295,6 +295,14 @@ export class CameraItem extends React.Component {
   };
   onFinish = (values) => {
     console.log("Success:", values);
+    this.setState({
+      picsObj: {
+        face: "",
+        top: "",
+        bottom: "",
+        ...values,
+      },
+    });
   };
 
   onFinishFailed = (errorInfo) => {
@@ -401,7 +409,7 @@ export class CameraItem extends React.Component {
                 >
                   <Form.Item
                     label="姓名"
-                    name="username"
+                    name="name"
                     rules={[
                       {
                         required: true,
@@ -414,7 +422,7 @@ export class CameraItem extends React.Component {
 
                   <Form.Item
                     label="性别"
-                    name="gender"
+                    name="sex"
                     rules={[
                       {
                         required: true,
